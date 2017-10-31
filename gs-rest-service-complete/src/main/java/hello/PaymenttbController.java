@@ -35,22 +35,21 @@ public class PaymenttbController {
 					"paymenttb.AutoAmount,\r\n" + 
 					"paymenttb.TimeTotal,\r\n" + 
 					"paymenttb.Active,\r\n" + 
-					"paymenttb.UserNote,\r\n" + 
 					"paymenttb.Note,\r\n" + 
-					"paymenttb.MachineName from paymenttb where VoucherDate = DATE_FORMAT(NOW(), '%Y-%m-%d')";
+					"paymenttb.MachineName from paymenttb where note <> '' and VoucherDate = DATE_FORMAT(NOW(), '%Y-%m-%d')";
 			rs = stmt.executeQuery(sql_Count);
 						
 			while (rs.next()) {
 				Paymenttb payment = new Paymenttb();
-				payment.setVoucherNo(rs.getString("VoucherDate"));
+				payment.setVoucherNo(rs.getString("voucherDate"));
 				payment.setVoucherDate(rs.getDate("voucherDate"));
 				payment.setVoucherTime(rs.getTime("voucherTime"));
 				payment.setAmount(rs.getLong("amount"));
 				payment.setAutoAmount(rs.getLong("autoAmount"));
 				payment.setTimeTotal(rs.getInt("timeTotal"));
 				payment.setActive(rs.getInt("active"));
-				payment.setUserNote(rs.getString("userNote"));
 				payment.setMachineName(rs.getString("machineName"));
+				payment.setNote(rs.getString("note"));
 				paymenttbs.add(payment);
 			}
 			
@@ -77,21 +76,20 @@ public class PaymenttbController {
 					"paymenttb.AutoAmount," + 
 					"paymenttb.TimeTotal," + 
 					"paymenttb.Active," + 
-					"paymenttb.UserNote," + 
 					"paymenttb.Note," + 
-					"paymenttb.MachineName from paymenttb where VoucherDate >= '"+tungay+"' and VoucherDate <= '"+denngay+"' ";
+					"paymenttb.MachineName from paymenttb where note <> '' and VoucherDate >= '"+tungay+"' and VoucherDate <= '"+denngay+"' ";
 			rs = stmt.executeQuery(sql_Count);
 						
 			while (rs.next()) {
 				Paymenttb payment = new Paymenttb();
-				payment.setVoucherNo(rs.getString("VoucherDate"));
+				payment.setVoucherNo(rs.getString("voucherDate"));
 				payment.setVoucherDate(rs.getDate("voucherDate"));
 				payment.setVoucherTime(rs.getTime("voucherTime"));
 				payment.setAmount(rs.getLong("amount"));
 				payment.setAutoAmount(rs.getLong("autoAmount"));
 				payment.setTimeTotal(rs.getInt("timeTotal"));
 				payment.setActive(rs.getInt("active"));
-				payment.setUserNote(rs.getString("userNote"));
+				payment.setNote(rs.getString("note"));
 				payment.setMachineName(rs.getString("machineName"));
 				paymenttbs.add(payment);
 			}
