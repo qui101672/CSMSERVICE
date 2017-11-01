@@ -23,10 +23,10 @@ public class PaymenttbController {
     @RequestMapping("/api/getPaymentList")
 	public ResponseEntity<List<Paymenttb>> getPaymentList() {
 		List<Paymenttb> paymenttbs = new ArrayList<Paymenttb>();
-		
+		String Amount = null;
 		try {
 			Statement stmt 	= MysqlConnector.conn.createStatement();
-			ResultSet rs; 	
+			ResultSet rs;
 			// lay lich su giao dich trong ngay hien tai
 			String sql_Count = "select paymenttb.VoucherNo,\r\n" + 
 					"paymenttb.VoucherDate,\r\n" + 
@@ -52,7 +52,7 @@ public class PaymenttbController {
 				payment.setNote(rs.getString("note"));
 				paymenttbs.add(payment);
 			}
-			
+					
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -64,7 +64,7 @@ public class PaymenttbController {
     @RequestMapping("/api/getPaymentListByDate/{tungay}/{denngay}")
 	public ResponseEntity<List<Paymenttb>> getPaymentListByDate(@PathVariable("tungay") String tungay, @PathVariable("denngay") String denngay) {
 		List<Paymenttb> paymenttbs = new ArrayList<Paymenttb>();
-		
+
 		try {
 			Statement stmt 	= MysqlConnector.conn.createStatement();
 			ResultSet rs; 	
@@ -93,12 +93,12 @@ public class PaymenttbController {
 				payment.setMachineName(rs.getString("machineName"));
 				paymenttbs.add(payment);
 			}
-			
+						
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
+		
 		return new ResponseEntity<List<Paymenttb>>(paymenttbs, HttpStatus.OK);		
 	}
-    
+   
 }
